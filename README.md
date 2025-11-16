@@ -4,3 +4,4 @@ A simple video gallery made with godot engine and ffmpeg<br>
 > [!NOTE]
 > This is still W.I.P<br>
 
+![alt text](Assets/screenshot.png "Screenshot"))
