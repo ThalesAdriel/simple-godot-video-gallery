@@ -1,0 +1,73 @@
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://d4hlbbr5l8hoa"]
+
+[ext_resource type="FontFile" uid="uid://b82t43bqmro61" path="res://Assets/Fonts/Inter.ttc" id="1_b3bcu"]
+[ext_resource type="Texture2D" uid="uid://bjbepyucx753i" path="res://Assets/UI/button_hover.png" id="2_bohdb"]
+[ext_resource type="Texture2D" uid="uid://ojb1xe87gfn8" path="res://Assets/UI/button.png" id="3_4o32r"]
+[ext_resource type="Texture2D" uid="uid://de0eh3iew2rkq" path="res://Assets/UI/panel.png" id="4_4d40e"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8gbba"]
+texture = ExtResource("2_bohdb")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+modulate_color = Color(0.82263935, 0.82263935, 0.8226393, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jjvhh"]
+texture = ExtResource("2_bohdb")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kry3j"]
+texture = ExtResource("3_4o32r")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_21xkr"]
+texture = ExtResource("2_bohdb")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b3bcu"]
+texture = ExtResource("2_bohdb")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bohdb"]
+texture = ExtResource("3_4o32r")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6bp64"]
+texture = ExtResource("4_4d40e")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[resource]
+default_font = ExtResource("1_b3bcu")
+default_font_size = 18
+Button/fonts/font = ExtResource("1_b3bcu")
+Button/styles/focus = SubResource("StyleBoxTexture_8gbba")
+Button/styles/hover = SubResource("StyleBoxTexture_jjvhh")
+Button/styles/normal = SubResource("StyleBoxTexture_kry3j")
+Button/styles/pressed = SubResource("StyleBoxTexture_21xkr")
+CheckBox/constants/h_separation = 10
+CheckBox/styles/hover_pressed = SubResource("StyleBoxTexture_b3bcu")
+CheckBox/styles/pressed = SubResource("StyleBoxTexture_bohdb")
+GridContainer/constants/h_separation = 30
+GridContainer/constants/v_separation = 30
+HBoxContainer/constants/separation = 15
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_6bp64")
+SpinBox/constants/buttons_width = 60
