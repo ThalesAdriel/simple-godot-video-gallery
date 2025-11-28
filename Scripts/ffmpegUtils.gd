@@ -2,13 +2,13 @@ class_name FFMPEG
 extends Node
 
 var _threads : Array = []
-var _results := {}
-var _mutex := Mutex.new()
+var _results : Dictionary = {}
+var _mutex : Mutex = Mutex.new()
 var _generated_textures : Array = []
 
-func createSegmentFrames(ffmpegPath, ffprobePath, checkFfmpeg, filePath, thumbDir, fileName, thumbW, thumbH) -> Dictionary:
+func createSegmentFrames(ffmpegPath, ffprobePath, checkffmpeg, filePath, thumbDir, fileName, thumbW, thumbH) -> Dictionary:
 	var segments = {"start": [], "middle": [], "end": []}
-	if !checkFfmpeg:
+	if !checkffmpeg:
 		push_error("No ffmpeg found!")
 		return segments
 
@@ -21,11 +21,11 @@ func createSegmentFrames(ffmpegPath, ffprobePath, checkFfmpeg, filePath, thumbDi
 		return segments
 
 	var segmentTimes = [
-		[0.0, duration * 0.1, duration * 0.2],
-		[duration * 0.4, duration * 0.5, duration * 0.6],
-		[duration * 0.8, duration * 0.85, duration * 0.9]
+		duration * 0.1,
+		duration * 0.5,
+		duration * 0.9
 	]
-
+	
 	for i in range(3):
 		var t := Thread.new()
 		_threads.append(t)
@@ -44,33 +44,27 @@ func createSegmentFrames(ffmpegPath, ffprobePath, checkFfmpeg, filePath, thumbDi
 				img = null
 
 	return segments
-
-func _generate_segment(segIndex, timeList, ffmpegPath, inputPabs, thumbDir, fileName, thumbW, thumbH):
+	
+func _generate_segment(segIndex, tSec, ffmpegPath, inputPabs, thumbDir, fileName, thumbW, thumbH):
 	var label = ["start","middle","end"][segIndex]
-	var collected := []
-	var lastFramePath = ""
+	var collected : Array = []
+	var framePath = thumbDir.path_join("%s_%s.png" % [fileName, label])
+	var outAbs = ProjectSettings.globalize_path(framePath)
 
-	for j in range(3):
-		var tSec = timeList[j]
-		var fPath = thumbDir.path_join("%s_%s_%d.png" % [fileName, label, j])
-		lastFramePath = fPath
-		var outAbs = ProjectSettings.globalize_path(fPath)
+	if !FileAccess.file_exists(outAbs):
+		OS.execute(ffmpegPath, [
+			"-hwaccel","auto",
+			"-ss", str(tSec),
+			"-i", inputPabs,
+			"-vf","scale=%d:%d" % [thumbW, thumbH],
+			"-q:v", "2",
+			"-y", outAbs
+		], [], true)
 
-		if !FileAccess.file_exists(outAbs):
-			OS.execute(ffmpegPath, [
-				"-hwaccel","auto",
-				"-ss", str(tSec),
-				"-i", inputPabs,
-				"-vf","scale=%d:%d" % [thumbW, thumbH],
-				"-q:v", "2",
-				"-y", outAbs
-			], [], true)
-
-		if !isBlackWhite(outAbs):
-			collected.append(outAbs)
-
-	if collected.is_empty() and lastFramePath != "":
-		collected.append(ProjectSettings.globalize_path(lastFramePath))
+	if !isBlackWhite(outAbs):
+		collected.append(outAbs)
+	else:
+		collected.append(outAbs)
 
 	_mutex.lock()
 	_results[label] = collected
