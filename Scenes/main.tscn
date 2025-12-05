@@ -183,6 +183,21 @@ placeholder_text = "\"/usr/bin/ffprobe\""
 alignment = 3
 expand_to_text_length = true
 
+[node name="PreviewFrames" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Will Increase thumb generation time by a lot"
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/PreviewFrames"]
+layout_mode = 2
+text = "Preview frames per video"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/PreviewFrames"]
+layout_mode = 2
+placeholder_text = "3"
+alignment = 1
+expand_to_text_length = true
+
 [node name="appearAnimation" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_jjvhh")
