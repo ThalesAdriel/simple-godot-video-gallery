@@ -114,6 +114,7 @@ oversampling_override = 1.0
 title = "Configurations"
 initial_position = 2
 size = Vector2i(1110, 560)
+visible = true
 wrap_controls = false
 force_native = true
 
@@ -135,16 +136,7 @@ theme_override_constants/separation = 15
 [node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Configurations"
-
-[node name="FontSize" type="SpinBox" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-min_value = 0.1
-max_value = 10.0
-step = 0.1
-value = 1.0
-update_on_text_changed = true
-prefix = "Font Size:"
+horizontal_alignment = 1
 
 [node name="CheckForBlackFrames" type="CheckBox" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -195,6 +187,36 @@ text = "Preview frames per video"
 [node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/PreviewFrames"]
 layout_mode = 2
 placeholder_text = "3"
+alignment = 1
+expand_to_text_length = true
+
+[node name="FontSize" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Will Increase thumb generation time by a lot"
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/FontSize"]
+layout_mode = 2
+text = "Font Size"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/FontSize"]
+layout_mode = 2
+placeholder_text = "18"
+alignment = 1
+expand_to_text_length = true
+
+[node name="FontScale" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Will Increase thumb generation time by a lot"
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/FontScale"]
+layout_mode = 2
+text = "Font Scale"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/FontScale"]
+layout_mode = 2
+placeholder_text = "1"
 alignment = 1
 expand_to_text_length = true
 
