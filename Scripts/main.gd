@@ -177,15 +177,9 @@ func _onThumbHover(thumbnail : TextureRect, data : Dictionary):
 		return
 
 	var frameIndex : int = 0
-	var timer : Timer = Timer.new()
-	timer.wait_time = PREVIEW_FRAME_INTERVAL
-	timer.one_shot = false
-	timer.autostart = true
-	timer.timeout.connect(func():
-		frameIndex = (frameIndex + 1) % frames.size()
-		if is_instance_valid(thumbnail):
-			thumbnail.texture = frames[frameIndex]
-	)
+	frameIndex = (frameIndex + 1) % frames.size()
+	if is_instance_valid(thumbnail):
+		thumbnail.texture = frames[frameIndex]
 
 func _onThumbNotHover(thumbnail : TextureRect, data : Dictionary):
 	if data.has("timer") && is_instance_valid(data["timer"]):
@@ -203,19 +197,9 @@ func _onThumbInput(event : InputEvent, data : Dictionary, thumbnail : TextureRec
 			var frames : Array = data.get("segmentFrames", []) [segIndex] as Array
 			if frames.size() > 0:
 				var frameIndex : int = 0
-				var timer : Timer = Timer.new()
-				timer.wait_time = PREVIEW_FRAME_INTERVAL
-				timer.one_shot = false
-				timer.autostart = true
-				timer.timeout.connect(func():
-					frameIndex = (frameIndex + 1) % frames.size()
-					if is_instance_valid(thumbnail):
-						thumbnail.texture = frames[frameIndex]
-				)
-				add_child(timer)
-				if data.has("timer") && is_instance_valid(data["timer"]):
-					data["timer"].queue_free()
-				data["timer"] = timer
+				frameIndex = (frameIndex + 1) % frames.size()
+				if is_instance_valid(thumbnail):
+					thumbnail.texture = frames[frameIndex]
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if data.has("videoPath"):
 			var pathToOpen := ProjectSettings.globalize_path(data["videoPath"])
