@@ -47,6 +47,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
+action_mode = 0
 text = "Open Folder"
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
@@ -55,6 +56,7 @@ metadata/_custom_type_script = "uid://tx13wbiq8yx4"
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
+action_mode = 0
 text = "Open Last Folder"
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
@@ -63,6 +65,7 @@ metadata/_custom_type_script = "uid://tx13wbiq8yx4"
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
+action_mode = 0
 text = "Clear Cache"
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
@@ -71,6 +74,7 @@ metadata/_custom_type_script = "uid://tx13wbiq8yx4"
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
+action_mode = 0
 text = "Check All Files"
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
@@ -80,6 +84,7 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
 button_pressed = true
+action_mode = 0
 text = "Show Files Names"
 script = ExtResource("1_jjgbg")
 metadata/_custom_type_script = "uid://dsegvrxon5ob0"
@@ -87,15 +92,10 @@ metadata/_custom_type_script = "uid://dsegvrxon5ob0"
 [node name="Configurations" type="Button" parent="Control/VSplitContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Configurations "
+action_mode = 0
+text = "⚙️ Configurations "
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
-
-[node name="SpinBox" type="SpinBox" parent="Control/VSplitContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-alignment = 1
-update_on_text_changed = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Control/VSplitContainer"]
 layout_mode = 2
@@ -114,6 +114,7 @@ oversampling_override = 1.0
 title = "Configurations"
 initial_position = 2
 size = Vector2i(1110, 560)
+visible = true
 wrap_controls = false
 force_native = true
 
@@ -130,6 +131,20 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/ConfigWindow/MarginContainer"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Configurations"
+
+[node name="FontSize" type="SpinBox" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.0
+update_on_text_changed = true
+prefix = "Font Size:"
 
 [node name="CheckForBlackFrames" type="CheckBox" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
