@@ -62,11 +62,9 @@ func _generate_segment(segIndex, tSec, ffmpegPath, inputPabs, thumbDir, fileName
 		], [], true)
 	
 	if checkForBlackFrames:
-		print(checkForBlackFrames)
 		if !isBlackWhite(outAbs):
 			collected.append(outAbs)
 	else:
-		print("binted")
 		collected.append(outAbs)
 
 	_mutex.lock()
