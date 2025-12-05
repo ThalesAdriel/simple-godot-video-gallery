@@ -47,6 +47,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
+action_mode = 0
 text = "Open Folder"
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
@@ -55,6 +56,7 @@ metadata/_custom_type_script = "uid://tx13wbiq8yx4"
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
+action_mode = 0
 text = "Open Last Folder"
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
@@ -63,6 +65,7 @@ metadata/_custom_type_script = "uid://tx13wbiq8yx4"
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
+action_mode = 0
 text = "Clear Cache"
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
@@ -71,6 +74,7 @@ metadata/_custom_type_script = "uid://tx13wbiq8yx4"
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
+action_mode = 0
 text = "Check All Files"
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
@@ -80,15 +84,18 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
 button_pressed = true
+action_mode = 0
 text = "Show Files Names"
 script = ExtResource("1_jjgbg")
 metadata/_custom_type_script = "uid://dsegvrxon5ob0"
 
-[node name="SpinBox" type="SpinBox" parent="Control/VSplitContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-visible = false
+[node name="Configurations" type="Button" parent="Control/VSplitContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-alignment = 1
-update_on_text_changed = true
+action_mode = 0
+text = "⚙️ Configurations "
+script = ExtResource("1_bo1nx")
+metadata/_custom_type_script = "uid://tx13wbiq8yx4"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Control/VSplitContainer"]
 layout_mode = 2
@@ -100,6 +107,117 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_stretch_ratio = 2.0
 columns = 5
+
+[node name="ConfigWindow" type="Popup" parent="Control"]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Configurations"
+initial_position = 2
+size = Vector2i(1110, 560)
+wrap_controls = false
+force_native = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/ConfigWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ConfigWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Configurations"
+horizontal_alignment = 1
+
+[node name="CheckForBlackFrames" type="CheckBox" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Will increase thumb generations time"
+action_mode = 0
+text = "Check for black frames"
+script = ExtResource("1_jjgbg")
+metadata/_custom_type_script = "uid://dsegvrxon5ob0"
+
+[node name="ffmpegPath" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/ffmpegPath"]
+layout_mode = 2
+text = "ffmpeg path"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/ffmpegPath"]
+layout_mode = 2
+placeholder_text = "\"/usr/bin/ffmpeg\""
+alignment = 3
+expand_to_text_length = true
+
+[node name="ffprobePath" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/ffprobePath"]
+layout_mode = 2
+text = "ffprobe path"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/ffprobePath"]
+layout_mode = 2
+placeholder_text = "\"/usr/bin/ffprobe\""
+alignment = 3
+expand_to_text_length = true
+
+[node name="PreviewFrames" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Will Increase thumb generation time by a lot"
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/PreviewFrames"]
+layout_mode = 2
+text = "Preview frames per video"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/PreviewFrames"]
+layout_mode = 2
+placeholder_text = "3"
+alignment = 1
+expand_to_text_length = true
+
+[node name="FontSize" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Will Increase thumb generation time by a lot"
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/FontSize"]
+layout_mode = 2
+text = "Font Size"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/FontSize"]
+layout_mode = 2
+placeholder_text = "18"
+alignment = 1
+expand_to_text_length = true
+
+[node name="FontScale" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Will Increase thumb generation time by a lot"
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/FontScale"]
+layout_mode = 2
+text = "Font Scale"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/FontScale"]
+layout_mode = 2
+placeholder_text = "1"
+alignment = 1
+expand_to_text_length = true
 
 [node name="appearAnimation" type="Node" parent="."]
 unique_name_in_owner = true

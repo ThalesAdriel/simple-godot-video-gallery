@@ -4,7 +4,6 @@ const VIDEO_EXTS : Array = [".mp4", ".avi", ".mov", ".mkv", ".webm"]
 const THUMB_DIR : String = "user://cache"
 const THUMB_SIZE : Vector2 = Vector2(200, 120)
 const LAST_PATH_FILE : String = "res://lastPathData.txt"
-const PREVIEW_FRAME_INTERVAL: float = 0.15
 
 @onready var ffmpegUtils : FFMPEG = preload("res://Scripts/ffmpegUtils.gd").new()
 @onready var buttonAppearAnimation : AppearAnimation = preload("res://Scripts/appearAnimation.gd").new()
@@ -13,11 +12,16 @@ const PREVIEW_FRAME_INTERVAL: float = 0.15
 @onready var openLastFolder : AnimatedButton = %openLastFolder
 @onready var clearCache : AnimatedButton = %clearCache
 @onready var checkAllFiles : AnimatedButton = %checkAllFiles
+@onready var configurations : AnimatedButton = %Configurations
+
+@onready var checkForBlackFrames: AnimatedCheckBox = %CheckForBlackFrames
 
 @onready var gridGallery : GridContainer = %GridGallery
 
 @onready var showFileNames : AnimatedCheckBox = %showFileNames
 @onready var buttons : Array = %appearAnimation.getAllButtons(self)
+
+@onready var configWindow : Popup = %ConfigWindow
 
 var ffmpegPath : String = "/usr/bin/ffmpeg"
 var ffprobePath : String = "/usr/bin/ffprobe"
@@ -26,8 +30,10 @@ var showFilesNames : bool = true
 var lastFolderPath : String = ""
 var fallbackThumbnail : String = ""
 var trucateAt : int = 15
+var blackFrameSkip : bool
 
 func _ready() -> void:
+	configWindow.visible = false
 	buttons.sort_custom(Callable(buttonAppearAnimation, "buttonsArraySorting"))
 	%appearAnimation.animateButtons(buttons.duplicate(), true)
 
@@ -40,6 +46,7 @@ func _ready() -> void:
 	clearCache.pressed.connect(clearCacheF)
 	checkAllFiles.pressed.connect(checkAllFilesF)
 	showFileNames.toggled.connect(func(pressed): showFilesNames = pressed; updateVisibility())
+	configurations.pressed.connect(showConfigWindow)
 	
 func openFolderF():
 	print(verifyBinExistence())
@@ -100,6 +107,14 @@ func checkAllFilesF():
 func truncateNames(fileName : String, maxLength : int) -> String:
 	return fileName.substr(0, maxLength) + "..." if fileName.length() > maxLength else fileName
 
+func showConfigWindow():
+	configWindow.visible = true
+	if checkForBlackFrames.pressed:
+		blackFrameSkip = true
+	else:
+		blackFrameSkip = false
+	
+
 func addGalleryItem(filePath : String):
 	if !gridGallery:
 		return
@@ -108,7 +123,7 @@ func addGalleryItem(filePath : String):
 	container.custom_minimum_size = THUMB_SIZE
 
 	checkFfmpeg = verifyBinExistence()
-	var segmentFrames : Dictionary = ffmpegUtils.createSegmentFrames(ffmpegPath, ffprobePath, checkFfmpeg, filePath, THUMB_DIR, filePath.get_file(), int(THUMB_SIZE.x), int(THUMB_SIZE.y))
+	var segmentFrames : Dictionary = ffmpegUtils.createSegmentFrames(ffmpegPath, ffprobePath, checkFfmpeg, filePath, THUMB_DIR, filePath.get_file(), int(THUMB_SIZE.x), int(THUMB_SIZE.y), blackFrameSkip)
 
 	var thumbnailTexture : Texture2D = ImageTexture.new()
 	if segmentFrames.has("start") && segmentFrames["start"].size() > 0:
@@ -161,19 +176,11 @@ func _onThumbHover(thumbnail : TextureRect, data : Dictionary):
 		return
 
 	var frameIndex : int = 0
-	var timer : Timer = Timer.new()
-	timer.wait_time = PREVIEW_FRAME_INTERVAL
-	timer.one_shot = false
-	timer.autostart = true
-	timer.timeout.connect(func():
-		frameIndex = (frameIndex + 1) % frames.size()
-		if is_instance_valid(thumbnail):
-			thumbnail.texture = frames[frameIndex]
-	)
+	frameIndex = (frameIndex + 1) % frames.size()
+	if is_instance_valid(thumbnail):
+		thumbnail.texture = frames[frameIndex]
 
 func _onThumbNotHover(thumbnail : TextureRect, data : Dictionary):
-	if data.has("timer") && is_instance_valid(data["timer"]):
-		data["timer"].queue_free()
 	thumbnail.texture = data["thumbnailTexture"]
 
 func _onThumbInput(event : InputEvent, data : Dictionary, thumbnail : TextureRect):
@@ -187,19 +194,9 @@ func _onThumbInput(event : InputEvent, data : Dictionary, thumbnail : TextureRec
 			var frames : Array = data.get("segmentFrames", []) [segIndex] as Array
 			if frames.size() > 0:
 				var frameIndex : int = 0
-				var timer : Timer = Timer.new()
-				timer.wait_time = PREVIEW_FRAME_INTERVAL
-				timer.one_shot = false
-				timer.autostart = true
-				timer.timeout.connect(func():
-					frameIndex = (frameIndex + 1) % frames.size()
-					if is_instance_valid(thumbnail):
-						thumbnail.texture = frames[frameIndex]
-				)
-				add_child(timer)
-				if data.has("timer") && is_instance_valid(data["timer"]):
-					data["timer"].queue_free()
-				data["timer"] = timer
+				frameIndex = (frameIndex + 1) % frames.size()
+				if is_instance_valid(thumbnail):
+					thumbnail.texture = frames[frameIndex]
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if data.has("videoPath"):
 			var pathToOpen := ProjectSettings.globalize_path(data["videoPath"])

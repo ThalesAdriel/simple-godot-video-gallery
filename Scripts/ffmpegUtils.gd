@@ -6,7 +6,7 @@ var _results : Dictionary = {}
 var _mutex : Mutex = Mutex.new()
 var _generated_textures : Array = []
 
-func createSegmentFrames(ffmpegPath, ffprobePath, checkffmpeg, filePath, thumbDir, fileName, thumbW, thumbH) -> Dictionary:
+func createSegmentFrames(ffmpegPath, ffprobePath, checkffmpeg, filePath, thumbDir, fileName, thumbW, thumbH, generateBlackFrames) -> Dictionary:
 	var segments = {"start": [], "middle": [], "end": []}
 	if !checkffmpeg:
 		push_error("No ffmpeg found!")
@@ -29,7 +29,7 @@ func createSegmentFrames(ffmpegPath, ffprobePath, checkffmpeg, filePath, thumbDi
 	for i in range(3):
 		var t := Thread.new()
 		_threads.append(t)
-		t.start(_generate_segment.bind(i, segmentTimes[i], ffmpegPath, inputPabs, thumbDir, fileName, thumbW, thumbH))
+		t.start(_generate_segment.bind(i, segmentTimes[i], ffmpegPath, inputPabs, thumbDir, fileName, thumbW, thumbH, generateBlackFrames))
 
 	_wait_for_threads()
 
@@ -45,7 +45,7 @@ func createSegmentFrames(ffmpegPath, ffprobePath, checkffmpeg, filePath, thumbDi
 
 	return segments
 	
-func _generate_segment(segIndex, tSec, ffmpegPath, inputPabs, thumbDir, fileName, thumbW, thumbH):
+func _generate_segment(segIndex, tSec, ffmpegPath, inputPabs, thumbDir, fileName, thumbW, thumbH, checkForBlackFrames):
 	var label = ["start","middle","end"][segIndex]
 	var collected : Array = []
 	var framePath = thumbDir.path_join("%s_%s.png" % [fileName, label])
@@ -60,9 +60,10 @@ func _generate_segment(segIndex, tSec, ffmpegPath, inputPabs, thumbDir, fileName
 			"-q:v", "2",
 			"-y", outAbs
 		], [], true)
-
-	if !isBlackWhite(outAbs):
-		collected.append(outAbs)
+	
+	if checkForBlackFrames:
+		if !isBlackWhite(outAbs):
+			collected.append(outAbs)
 	else:
 		collected.append(outAbs)
 
