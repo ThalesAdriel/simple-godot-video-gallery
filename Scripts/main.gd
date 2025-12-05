@@ -31,6 +31,7 @@ var showFilesNames : bool = true
 var lastFolderPath : String = ""
 var fallbackThumbnail : String = ""
 var trucateAt : int = 15
+var blackFrameSkip : bool
 
 func _ready() -> void:
 	configWindow.visible = false
@@ -109,6 +110,10 @@ func truncateNames(fileName : String, maxLength : int) -> String:
 
 func showConfigWindow():
 	configWindow.visible = true
+	if checkForBlackFrames.pressed:
+		blackFrameSkip = true
+	else:
+		blackFrameSkip = false
 	
 
 func addGalleryItem(filePath : String):
@@ -119,7 +124,7 @@ func addGalleryItem(filePath : String):
 	container.custom_minimum_size = THUMB_SIZE
 
 	checkFfmpeg = verifyBinExistence()
-	var segmentFrames : Dictionary = ffmpegUtils.createSegmentFrames(ffmpegPath, ffprobePath, checkFfmpeg, filePath, THUMB_DIR, filePath.get_file(), int(THUMB_SIZE.x), int(THUMB_SIZE.y), checkForBlackFrames.toggle_mode)
+	var segmentFrames : Dictionary = ffmpegUtils.createSegmentFrames(ffmpegPath, ffprobePath, checkFfmpeg, filePath, THUMB_DIR, filePath.get_file(), int(THUMB_SIZE.x), int(THUMB_SIZE.y), blackFrameSkip)
 
 	var thumbnailTexture : Texture2D = ImageTexture.new()
 	if segmentFrames.has("start") && segmentFrames["start"].size() > 0:
