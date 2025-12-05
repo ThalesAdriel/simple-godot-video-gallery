@@ -93,7 +93,7 @@ metadata/_custom_type_script = "uid://dsegvrxon5ob0"
 unique_name_in_owner = true
 layout_mode = 2
 action_mode = 0
-text = "⚙️ Configurations "
+text = "󰒓  Configurations "
 script = ExtResource("1_bo1nx")
 metadata/_custom_type_script = "uid://tx13wbiq8yx4"
 
