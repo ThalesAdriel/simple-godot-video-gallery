@@ -114,6 +114,7 @@ oversampling_override = 1.0
 title = "Configurations"
 initial_position = 2
 size = Vector2i(1110, 560)
+visible = true
 wrap_controls = false
 force_native = true
 
@@ -149,9 +150,38 @@ prefix = "Font Size:"
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Will increase thumb generations time"
+action_mode = 0
 text = "Check for black frames"
 script = ExtResource("1_jjgbg")
 metadata/_custom_type_script = "uid://dsegvrxon5ob0"
+
+[node name="ffmpegPath" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/ffmpegPath"]
+layout_mode = 2
+text = "ffmpeg path"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/ffmpegPath"]
+layout_mode = 2
+placeholder_text = "\"/usr/bin/ffmpeg\""
+alignment = 3
+expand_to_text_length = true
+
+[node name="ffprobePath" type="HBoxContainer" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/ffprobePath"]
+layout_mode = 2
+text = "ffprobe path"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ConfigWindow/MarginContainer/VBoxContainer/ffprobePath"]
+layout_mode = 2
+placeholder_text = "\"/usr/bin/ffprobe\""
+alignment = 3
+expand_to_text_length = true
 
 [node name="appearAnimation" type="Node" parent="."]
 unique_name_in_owner = true

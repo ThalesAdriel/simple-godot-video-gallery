@@ -4,7 +4,6 @@ const VIDEO_EXTS : Array = [".mp4", ".avi", ".mov", ".mkv", ".webm"]
 const THUMB_DIR : String = "user://cache"
 const THUMB_SIZE : Vector2 = Vector2(200, 120)
 const LAST_PATH_FILE : String = "res://lastPathData.txt"
-const PREVIEW_FRAME_INTERVAL: float = 0.15
 
 @onready var ffmpegUtils : FFMPEG = preload("res://Scripts/ffmpegUtils.gd").new()
 @onready var buttonAppearAnimation : AppearAnimation = preload("res://Scripts/appearAnimation.gd").new()
