@@ -13,11 +13,16 @@ const PREVIEW_FRAME_INTERVAL: float = 0.15
 @onready var openLastFolder : AnimatedButton = %openLastFolder
 @onready var clearCache : AnimatedButton = %clearCache
 @onready var checkAllFiles : AnimatedButton = %checkAllFiles
+@onready var configurations : AnimatedButton = %Configurations
+
+@onready var checkForBlackFrames: AnimatedCheckBox = %CheckForBlackFrames
 
 @onready var gridGallery : GridContainer = %GridGallery
 
 @onready var showFileNames : AnimatedCheckBox = %showFileNames
 @onready var buttons : Array = %appearAnimation.getAllButtons(self)
+
+@onready var configWindow : Popup = %ConfigWindow
 
 var ffmpegPath : String = "/usr/bin/ffmpeg"
 var ffprobePath : String = "/usr/bin/ffprobe"
@@ -28,6 +33,7 @@ var fallbackThumbnail : String = ""
 var trucateAt : int = 15
 
 func _ready() -> void:
+	configWindow.visible = false
 	buttons.sort_custom(Callable(buttonAppearAnimation, "buttonsArraySorting"))
 	%appearAnimation.animateButtons(buttons.duplicate(), true)
 
@@ -40,6 +46,7 @@ func _ready() -> void:
 	clearCache.pressed.connect(clearCacheF)
 	checkAllFiles.pressed.connect(checkAllFilesF)
 	showFileNames.toggled.connect(func(pressed): showFilesNames = pressed; updateVisibility())
+	configurations.pressed.connect(showConfigWindow)
 	
 func openFolderF():
 	print(verifyBinExistence())
@@ -100,6 +107,10 @@ func checkAllFilesF():
 func truncateNames(fileName : String, maxLength : int) -> String:
 	return fileName.substr(0, maxLength) + "..." if fileName.length() > maxLength else fileName
 
+func showConfigWindow():
+	configWindow.visible = true
+	
+
 func addGalleryItem(filePath : String):
 	if !gridGallery:
 		return
@@ -108,7 +119,7 @@ func addGalleryItem(filePath : String):
 	container.custom_minimum_size = THUMB_SIZE
 
 	checkFfmpeg = verifyBinExistence()
-	var segmentFrames : Dictionary = ffmpegUtils.createSegmentFrames(ffmpegPath, ffprobePath, checkFfmpeg, filePath, THUMB_DIR, filePath.get_file(), int(THUMB_SIZE.x), int(THUMB_SIZE.y))
+	var segmentFrames : Dictionary = ffmpegUtils.createSegmentFrames(ffmpegPath, ffprobePath, checkFfmpeg, filePath, THUMB_DIR, filePath.get_file(), int(THUMB_SIZE.x), int(THUMB_SIZE.y), checkForBlackFrames.toggle_mode)
 
 	var thumbnailTexture : Texture2D = ImageTexture.new()
 	if segmentFrames.has("start") && segmentFrames["start"].size() > 0:

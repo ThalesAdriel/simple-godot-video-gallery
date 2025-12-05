@@ -84,6 +84,13 @@ text = "Show Files Names"
 script = ExtResource("1_jjgbg")
 metadata/_custom_type_script = "uid://dsegvrxon5ob0"
 
+[node name="Configurations" type="Button" parent="Control/VSplitContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Configurations "
+script = ExtResource("1_bo1nx")
+metadata/_custom_type_script = "uid://tx13wbiq8yx4"
+
 [node name="SpinBox" type="SpinBox" parent="Control/VSplitContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
@@ -100,6 +107,37 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_stretch_ratio = 2.0
 columns = 5
+
+[node name="ConfigWindow" type="Popup" parent="Control"]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Configurations"
+initial_position = 2
+size = Vector2i(1110, 560)
+wrap_controls = false
+force_native = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/ConfigWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ConfigWindow/MarginContainer"]
+layout_mode = 2
+
+[node name="CheckForBlackFrames" type="CheckBox" parent="Control/ConfigWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Will increase thumb generations time"
+text = "Check for black frames"
+script = ExtResource("1_jjgbg")
+metadata/_custom_type_script = "uid://dsegvrxon5ob0"
 
 [node name="appearAnimation" type="Node" parent="."]
 unique_name_in_owner = true
