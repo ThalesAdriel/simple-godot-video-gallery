@@ -114,7 +114,6 @@ oversampling_override = 1.0
 title = "Configurations"
 initial_position = 2
 size = Vector2i(1110, 560)
-visible = true
 wrap_controls = false
 force_native = true
 
