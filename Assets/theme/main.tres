@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://d4hlbbr5l8hoa"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://d4hlbbr5l8hoa"]
 
 [ext_resource type="FontFile" uid="uid://b82t43bqmro61" path="res://Assets/Fonts/Inter.ttc" id="1_b3bcu"]
 [ext_resource type="Texture2D" uid="uid://bjbepyucx753i" path="res://Assets/UI/button_hover.png" id="2_bohdb"]
@@ -48,6 +48,22 @@ texture_margin_top = 15.0
 texture_margin_right = 15.0
 texture_margin_bottom = 15.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4o32r"]
+texture = ExtResource("3_4o32r")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3bcu"]
+bg_color = Color(0.8862745, 0.8862745, 0.8862745, 0.101960786)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6bp64"]
 texture = ExtResource("4_4d40e")
 texture_margin_left = 15.0
@@ -69,5 +85,7 @@ CheckBox/styles/pressed = SubResource("StyleBoxTexture_bohdb")
 GridContainer/constants/h_separation = 30
 GridContainer/constants/v_separation = 30
 HBoxContainer/constants/separation = 15
+Label/styles/normal = SubResource("StyleBoxTexture_4o32r")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_b3bcu")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_6bp64")
 SpinBox/constants/buttons_width = 60
