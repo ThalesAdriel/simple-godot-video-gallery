@@ -92,6 +92,7 @@ metadata/_custom_type_script = "uid://dsegvrxon5ob0"
 [node name="Configurations" type="Button" parent="Control/VSplitContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_default_cursor_shape = 2
 action_mode = 0
 text = "󰒓  Configurations "
 script = ExtResource("1_bo1nx")
@@ -141,6 +142,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Will increase thumb generations time"
+mouse_default_cursor_shape = 2
 action_mode = 0
 text = "Check for black frames"
 script = ExtResource("1_jjgbg")
