@@ -13,7 +13,6 @@ A simple video gallery made with godot engine and ffmpeg<br>
 ### TODO:
 
 - Clear ffmpegUtils.gd code
-- Try implement multithreading
-- Add config options 
+- Add function to config options 
 
 ![alt text](Assets/screenshot.png "Screenshot"))
