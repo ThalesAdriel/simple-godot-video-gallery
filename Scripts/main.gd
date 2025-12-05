@@ -181,8 +181,6 @@ func _onThumbHover(thumbnail : TextureRect, data : Dictionary):
 		thumbnail.texture = frames[frameIndex]
 
 func _onThumbNotHover(thumbnail : TextureRect, data : Dictionary):
-	if data.has("timer") && is_instance_valid(data["timer"]):
-		data["timer"].queue_free()
 	thumbnail.texture = data["thumbnailTexture"]
 
 func _onThumbInput(event : InputEvent, data : Dictionary, thumbnail : TextureRect):
